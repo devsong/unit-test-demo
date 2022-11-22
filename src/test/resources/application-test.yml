@@ -1,0 +1,14 @@
+server:
+  port: 6060
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+

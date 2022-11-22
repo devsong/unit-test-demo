@@ -1,0 +1,167 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.7'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'jacoco'
+    id 'pmd'
+    id 'checkstyle'
+}
+
+group = 'com.example.test'
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    testAnnotationProcessor {
+        extendsFrom annotationProcessor
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    testCompileOnly {
+        extendsFrom compileOnly
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.flywaydb:flyway-core"
+    implementation "org.redisson:redisson:${redissonVersion}"
+    implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    compileOnly 'org.projectlombok:lombok'
+
+    annotationProcessor(
+            'org.projectlombok:lombok',
+            "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    )
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.github.tomakehurst:wiremock:2.27.2'
+    testImplementation "ch.vorburger.mariaDB4j:mariaDB4j:${mariaDBVersion}"
+    testImplementation "org.mariadb.jdbc:mariadb-java-client:${mariaDBJdbcVersion}"
+    testImplementation("it.ozimov:embedded-redis:${embeddedRedisVersion}") {
+        exclude group: "org.slf4j", module: "slf4j-simple"
+    }
+}
+
+bootJar {
+    mainClass = 'unit.test.demo.DemoApplication'
+}
+
+springBoot {
+    mainClass = 'unit.test.demo.DemoApplication'
+}
+
+
+//tasks.named('test') {
+//    useJUnitPlatform()
+//}
+
+def jacocoExcludes = [
+        'unit/test/demo/dto/**',
+        'unit/test/demo/entity/**',
+        'unit/test/demo/ms/**',
+        'unit/test/demo/client/**',
+        'unit/test/demo/config/**',
+        'unit/test/demo/common/**',
+        'unit/test/demo/util/**',
+        'unit/test/demo/exception/**',
+        'unit/test/demo/DemoApplication.class'
+]
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        exceptionFormat = 'full'
+        showStandardStreams = true
+    }
+
+    jacoco {
+        excludes = jacocoExcludes
+    }
+
+    finalizedBy jacocoTestReport, jacocoTestCoverageVerification
+}
+
+jacoco {
+    toolVersion = "${jacocoVersion}"
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    afterEvaluate {
+        def classFiles = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: jacocoExcludes)
+        })
+        executionData fileTree("${buildDir}/jacoco", {
+            includes = ['**/*.exec']
+        })
+
+        getClassDirectories().setFrom(classFiles)
+    }
+
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.enabled true
+        html.destination file("${buildDir}/jacocoReports")
+    }
+}
+
+jacocoTestCoverageVerification {
+    dependsOn test
+
+    afterEvaluate {
+        def classFiles = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: jacocoExcludes)
+        })
+        executionData fileTree("${buildDir}/jacoco", {
+            includes = ['**/*.exec']
+        })
+
+        getClassDirectories().setFrom(classFiles)
+    }
+
+    violationRules {
+        rule {
+            limit {
+                counter = "BRANCH"
+                minimum = 0.66
+            }
+            limit {
+                counter = "METHOD"
+                minimum = 0.86
+            }
+            limit {
+                counter = "LINE"
+                minimum = 0.85
+            }
+            limit {
+                counter = "CLASS"
+                minimum = 0.92
+            }
+        }
+    }
+}
+
+pmd {
+    toolVersion = "${pmdVersion}"
+    consoleOutput = true
+    ruleSetFiles = files('config/pmd-ruleSets.xml')
+    ruleSets = []
+}
+
+checkstyle {
+    configFile = file('config/checkstyle.xml')
+    toolVersion = "${checkstyleVersion}"
+    sourceSets = [sourceSets.main]
+    ignoreFailures = true
+}
