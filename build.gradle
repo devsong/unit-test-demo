@@ -5,9 +5,10 @@ plugins {
     id 'jacoco'
     id 'pmd'
     id 'checkstyle'
+    id 'maven-publish'
 }
 
-group = 'com.example.test'
+group = 'unit.test'
 version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -27,13 +28,28 @@ repositories {
     mavenCentral()
 }
 
+publishing {
+    publications {
+        myLibrary(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation "org.flywaydb:flyway-core"
     implementation "org.redisson:redisson:${redissonVersion}"
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    implementation 'mysql:mysql-connector-java:8.0.25'
+
     compileOnly 'org.projectlombok:lombok'
 
     annotationProcessor(
@@ -57,11 +73,6 @@ bootJar {
 springBoot {
     mainClass = 'unit.test.demo.DemoApplication'
 }
-
-
-//tasks.named('test') {
-//    useJUnitPlatform()
-//}
 
 def jacocoExcludes = [
         'unit/test/demo/dto/**',
@@ -155,7 +166,7 @@ jacocoTestCoverageVerification {
 pmd {
     toolVersion = "${pmdVersion}"
     consoleOutput = true
-    ruleSetFiles = files('config/pmd-ruleSets.xml')
+    ruleSetFiles = files('config/pmd-rulesets.xml')
     ruleSets = []
 }
 

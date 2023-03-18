@@ -31,7 +31,7 @@ public enum EPlatform {
     OpenVMS("OpenVMS"),
     Others("Others");
 
-    private EPlatform(String desc) {
+    EPlatform(String desc) {
         this.description = desc;
     }
 

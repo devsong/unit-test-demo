@@ -2,6 +2,7 @@ package unit.test.demo.common;
 
 public class Constants {
 
+    public static final String CACHE_NAME = "unit-test-demo";
 
     public static class SysMajorCode {
         public static final int MAJOR_5XX = 500000;

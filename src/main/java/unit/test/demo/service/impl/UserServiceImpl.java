@@ -3,6 +3,7 @@ package unit.test.demo.service.impl;
 import org.springframework.cache.annotation.Cacheable;
 import unit.test.demo.aspect.DistributionLock;
 import unit.test.demo.client.PaymentClient;
+import unit.test.demo.common.Constants;
 import unit.test.demo.common.LockMode;
 import unit.test.demo.dto.UserCreationDto;
 import unit.test.demo.dto.UserInfoDto;
@@ -29,7 +30,7 @@ public class UserServiceImpl implements IUserService {
     private final PaymentClient paymentClient;
 
     @Override
-    @Cacheable(key = "#userId")
+    @Cacheable(value = Constants.CACHE_NAME, key = "#userId")
     public UserInfoDto queryUserInfo(Long userId) {
         Optional<UserInfoEntity> userOptional = userInfoRepository.findById(userId);
         if (userOptional.isEmpty()) {

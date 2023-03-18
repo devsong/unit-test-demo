@@ -4,7 +4,7 @@
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback
     https://raw.githubusercontent.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
-    <property name="log.path" value="/tmp/.data/spring-test-demo/" />
+    <property name="log.path" value="/tmp/.data/unit-test-demo/" />
 
     <property name="APP_NAME" value="spring-test-demo"/>
     <property name="LOG_HOME" value="./${log.dir:-logs}/"/>
