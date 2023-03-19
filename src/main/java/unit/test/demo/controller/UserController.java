@@ -1,15 +1,11 @@
 package unit.test.demo.controller;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.bind.annotation.*;
 import unit.test.demo.dto.UserCreationDto;
 import unit.test.demo.dto.UserInfoDto;
 import unit.test.demo.service.IUserService;
-import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author zhisong.guan

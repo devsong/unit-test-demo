@@ -1,9 +1,9 @@
 package unit.test.demo.truncate;
 
-import unit.test.demo.config.Mariadb4jConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import unit.test.demo.config.Mariadb4jConfig;
 
 import javax.transaction.Transactional;
 import java.util.List;

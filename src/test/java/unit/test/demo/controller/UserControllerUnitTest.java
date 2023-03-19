@@ -1,11 +1,5 @@
-package unit.test.demo.unittest.controller;
+package unit.test.demo.controller;
 
-import unit.test.demo.common.GlobalExceptionHandler;
-import unit.test.demo.controller.UserController;
-import unit.test.demo.dto.UserCreationDto;
-import unit.test.demo.dto.UserInfoDto;
-import unit.test.demo.service.IUserService;
-import unit.test.demo.util.ResourceParseUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,14 +12,16 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import unit.test.demo.dto.UserCreationDto;
+import unit.test.demo.dto.UserInfoDto;
+import unit.test.demo.service.IUserService;
+import unit.test.demo.util.ResourceParseUtil;
 
 import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -48,7 +44,7 @@ class UserControllerUnitTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(userController)
-                .setControllerAdvice(new GlobalExceptionHandler())
+                .setControllerAdvice(new GlobalControllerAdvice())
                 .build();
     }
 

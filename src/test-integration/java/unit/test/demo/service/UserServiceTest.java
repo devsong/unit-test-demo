@@ -1,11 +1,11 @@
-package unit.test.demo.integrationtest.service;
+package unit.test.demo.service;
 
+import org.junit.jupiter.api.Test;
 import unit.test.demo.IntegrationTestBase;
 import unit.test.demo.dto.UserCreationDto;
 import unit.test.demo.dto.UserInfoDto;
 import unit.test.demo.entity.UserInfoEntity;
 import unit.test.demo.util.ResourceParseUtil;
-import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 

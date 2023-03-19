@@ -1,10 +1,10 @@
 package unit.test.demo.config;
 
-import unit.test.demo.client.PaymentClient;
-import unit.test.demo.client.impl.SimplePaymentClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import unit.test.demo.client.PaymentClient;
+import unit.test.demo.client.impl.SimplePaymentClient;
 
 /**
  * @author zhisong.guan

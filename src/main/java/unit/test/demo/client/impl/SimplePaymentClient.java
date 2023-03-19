@@ -1,7 +1,7 @@
 package unit.test.demo.client.impl;
 
-import unit.test.demo.client.PaymentClient;
 import lombok.extern.slf4j.Slf4j;
+import unit.test.demo.client.PaymentClient;
 
 import java.util.concurrent.ThreadLocalRandom;
 

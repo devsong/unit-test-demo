@@ -4,7 +4,6 @@ package unit.test.demo.benchmark;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -17,9 +16,8 @@ import java.util.concurrent.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// @Disabled
 @Slf4j
-class UserServiceBenchMark extends IntegrationTestBase {
+class UserServiceBenchMarkTest extends IntegrationTestBase {
     private ExecutorService es = new ThreadPoolExecutor(10, 50, 60, TimeUnit.SECONDS, new SynchronousQueue<>(),
             new BasicThreadFactory.Builder().namingPattern("benchmark-%d").daemon(true).priority(Thread.NORM_PRIORITY).build(),
             new ThreadPoolExecutor.AbortPolicy());

@@ -1,8 +1,8 @@
 package unit.test.demo.repository;
 
-import unit.test.demo.entity.UserInfoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import unit.test.demo.entity.UserInfoEntity;
 
 import java.util.List;
 import java.util.Optional;

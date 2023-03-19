@@ -1,15 +1,15 @@
-package unit.test.demo.integrationtest.controller;
+package unit.test.demo.controller;
 
-import unit.test.demo.IntegrationTestBase;
-import unit.test.demo.dto.UserCreationDto;
-import unit.test.demo.dto.UserInfoDto;
-import unit.test.demo.entity.UserInfoEntity;
-import unit.test.demo.util.ResourceParseUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.test.web.servlet.MvcResult;
+import unit.test.demo.IntegrationTestBase;
+import unit.test.demo.dto.UserCreationDto;
+import unit.test.demo.dto.UserInfoDto;
+import unit.test.demo.entity.UserInfoEntity;
+import unit.test.demo.util.ResourceParseUtil;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

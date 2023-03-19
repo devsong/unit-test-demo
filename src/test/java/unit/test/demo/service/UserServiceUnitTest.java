@@ -1,11 +1,5 @@
-package unit.test.demo.unittest.service;
+package unit.test.demo.service;
 
-import unit.test.demo.client.PaymentClient;
-import unit.test.demo.dto.UserCreationDto;
-import unit.test.demo.dto.UserInfoDto;
-import unit.test.demo.entity.UserInfoEntity;
-import unit.test.demo.repository.UserInfoRepository;
-import unit.test.demo.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,15 +7,19 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import unit.test.demo.client.PaymentClient;
+import unit.test.demo.dto.UserCreationDto;
+import unit.test.demo.dto.UserInfoDto;
+import unit.test.demo.entity.UserInfoEntity;
+import unit.test.demo.repository.UserInfoRepository;
+import unit.test.demo.service.impl.UserServiceImpl;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class UserServiceUnitTest {
     @Mock

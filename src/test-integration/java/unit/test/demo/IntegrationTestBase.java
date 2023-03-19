@@ -1,12 +1,5 @@
 package unit.test.demo;
 
-import unit.test.demo.client.PaymentClient;
-import unit.test.demo.common.TestConstants;
-import unit.test.demo.config.properties.RedisConfigProperties;
-import unit.test.demo.repository.UserInfoRepository;
-import unit.test.demo.service.IUserService;
-import unit.test.demo.truncate.TruncateService;
-import unit.test.demo.util.ResourceParseUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,6 +15,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import redis.embedded.RedisServer;
+import unit.test.demo.client.PaymentClient;
+import unit.test.demo.common.TestConstants;
+import unit.test.demo.repository.UserInfoRepository;
+import unit.test.demo.service.IUserService;
+import unit.test.demo.truncate.TruncateService;
+import unit.test.demo.util.ResourceParseUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;

@@ -1,6 +1,10 @@
 package unit.test.demo.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import unit.test.demo.aspect.DistributionLock;
 import unit.test.demo.client.PaymentClient;
 import unit.test.demo.common.Constants;
@@ -11,10 +15,6 @@ import unit.test.demo.entity.UserInfoEntity;
 import unit.test.demo.ms.UserInfoMS;
 import unit.test.demo.repository.UserInfoRepository;
 import unit.test.demo.service.IUserService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
