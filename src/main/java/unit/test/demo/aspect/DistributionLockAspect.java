@@ -54,7 +54,7 @@ public class DistributionLockAspect {
                 rLock.unlock();
             }
         } else {
-            String msg = String.format("clsss %s methodName %s,key %s occurred parallel request", className, methodName, evalExpression);
+            String msg = String.format("class %s methodName %s,key %s occurred parallel request", className, methodName, evalExpression);
             throw new DuplicateRequestException(msg);
         }
         return ret;

@@ -70,7 +70,7 @@
 
     <root level="info">
         <appender-ref ref="console"/>
-        <appender-ref ref="FILE"/>
-        <appender-ref ref="ERROR_FILE"/>
+<!--        <appender-ref ref="FILE"/>-->
+<!--        <appender-ref ref="ERROR_FILE"/>-->
     </root>
 </configuration>
