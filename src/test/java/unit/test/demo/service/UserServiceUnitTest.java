@@ -1,5 +1,9 @@
 package unit.test.demo.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.base.Stopwatch;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -7,20 +11,27 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.cglib.beans.BeanMap;
 import unit.test.demo.client.PaymentClient;
 import unit.test.demo.dto.UserCreationDto;
 import unit.test.demo.dto.UserInfoDto;
 import unit.test.demo.entity.UserInfoEntity;
 import unit.test.demo.repository.UserInfoRepository;
 import unit.test.demo.service.impl.UserServiceImpl;
+import unit.test.demo.util.JsonUtil;
+import unit.test.demo.util.ResourceParseUtil;
 
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static unit.test.demo.util.ResourceParseUtil.BASE_JSON_PATH;
 
+@Slf4j
 class UserServiceUnitTest {
     @Mock
     private UserInfoRepository userInfoRepository;
@@ -121,5 +132,39 @@ class UserServiceUnitTest {
     @ValueSource(strings = {"","123.234.12.4:3424", "123.234.12.4:3424,", "123"})
     void should_split_first_ip(String ipList) {
         System.out.println(ipList.split(",")[0].split(":")[0]);
+    }
+
+    @ParameterizedTest()
+    @ValueSource(ints = {1000, 10000, 100000, 1000000})
+    @SneakyThrows
+    void show_jackson_and_bean_map_obj2map_perf(int cnt) {
+        TypeReference<Map<String, Object>> ref = new TypeReference<Map<String, Object>>() {
+        };
+        UserInfoEntity userInfoEntity = ResourceParseUtil.parseObject(BASE_JSON_PATH + "user_info_entity.json", UserInfoEntity.class);
+
+        Map<String, Object> jacksonUserInfoMap = null;
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        for (int i = 0; i < cnt; i++) {
+            // UserInfoEntity userInfoEntity = ResourceParseUtil.parseObject(BASE_JSON_PATH + "user_info_entity.json", UserInfoEntity.class);
+            jacksonUserInfoMap = jacksonUserInfoMap == null ? JsonUtil.OBJECT_MAPPER.convertValue(userInfoEntity, ref) : jacksonUserInfoMap;
+        }
+        stopwatch.stop();
+        log.info("jackson cost {}", stopwatch);
+
+        Map<String, Object> cglibUserInfoMap = null;
+        stopwatch = Stopwatch.createStarted();
+        for (int i = 0; i < cnt; i++) {
+            cglibUserInfoMap = cglibUserInfoMap == null ? BeanMap.create(userInfoEntity) : cglibUserInfoMap;
+        }
+        stopwatch.stop();
+        log.info("cglib bean map cost {}", stopwatch);
+        for (Map.Entry<String, Object> entry : jacksonUserInfoMap.entrySet()) {
+            String key = entry.getKey();
+            Object val = entry.getValue();
+            Object cglibVal = cglibUserInfoMap.get(key);
+            if (!Objects.equals(val, cglibVal)) {
+                log.error("jackson val {},cglib val {} are not equal", val, cglibVal);
+            }
+        }
     }
 }

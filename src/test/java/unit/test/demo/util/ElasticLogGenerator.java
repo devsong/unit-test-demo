@@ -28,7 +28,7 @@ public class ElasticLogGenerator {
                         .spanId("span")
                         .product("product")
                         .groupName("group")
-                        .app("spring-test-demo")
+                        .app("unit-test-demo")
                         .clazz(CONTROLLER_ARR[rand % CONTROLLER_ARR.length])
                         .method(METHOD_ARR[rand % METHOD_ARR.length])
                         .code(rand % 2)

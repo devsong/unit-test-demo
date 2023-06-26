@@ -29,4 +29,4 @@ spring:
     hibernate:
       use-new-id-generator-mappings: false
 logging:
-  config: classpath:logback.xml
+  config: classpath:logback-spring.xml

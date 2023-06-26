@@ -1,17 +1,28 @@
 package unit.test.demo.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.base.Stopwatch;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.cglib.beans.BeanMap;
 import unit.test.demo.IntegrationTestBase;
 import unit.test.demo.dto.UserCreationDto;
 import unit.test.demo.dto.UserInfoDto;
 import unit.test.demo.entity.UserInfoEntity;
+import unit.test.demo.util.JsonUtil;
 import unit.test.demo.util.ResourceParseUtil;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+@Slf4j
 class UserServiceTest extends IntegrationTestBase {
 //    @Mock
 //    PaymentClient paymentClient;
@@ -77,4 +88,6 @@ class UserServiceTest extends IntegrationTestBase {
         userInfoRepository.save(userInfoEntity);
         return userInfoEntity;
     }
+
+
 }
