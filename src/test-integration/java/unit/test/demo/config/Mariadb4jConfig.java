@@ -43,14 +43,14 @@ public class Mariadb4jConfig {
         config.addArg("--collation-server=utf8mb4_general_ci");
         config.addArg("--user=root");
         config.addArg("--max-connections=1024");
+        config.setDeletingTemporaryBaseAndDataDirsOnShutdown(true);
         config.setBaseDir(SystemUtils.JAVA_IO_TMPDIR + "/MariaDB4j/base");
         config.setDataDir(SystemUtils.JAVA_IO_TMPDIR + "/MariaDB4j/data");
-        config.setDeletingTemporaryBaseAndDataDirsOnShutdown(true);
-        if (OSInfo.isMacOSX() || OSInfo.isMacOS()) {
-            config.setUnpackingFromClasspath(false);
-            config.setBaseDir("/opt/homebrew");
-        }
-        config.setLibDir(System.getProperty("java.io.tmpdir") + "/MariaDB4j/no-libs");
+//        if (OSInfo.isMacOSX() || OSInfo.isMacOS()) {
+//            config.setUnpackingFromClasspath(false);
+//            config.setBaseDir("/opt/homebrew");
+//        }
+        config.setLibDir(SystemUtils.JAVA_IO_TMPDIR + "/MariaDB4j/no-libs");
 
         log.info("mariadb4j port {}", port);
         return mariaDB4jSpringService;
