@@ -17,8 +17,8 @@ spring:
     allow-bean-definition-overriding: false
   datasource:
     url: jdbc:mysql://localhost:3306/demo?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useUnicode=true&useSSL=false&zeroDateTimeBehavior=convertToNull
-    username: admin
-    password: 1RNbTI@m$zIE114s
+    username: root
+    password: 12345678
     driver-class-name: 'com.mysql.cj.jdbc.Driver'
     hikari:
       maximum-pool-size: 10

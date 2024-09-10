@@ -1,11 +1,16 @@
 package unit.test.demo.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import unit.test.demo.dto.UserCreationDto;
 import unit.test.demo.dto.UserInfoDto;
 import unit.test.demo.service.IUserService;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhisong.guan
@@ -13,6 +18,7 @@ import unit.test.demo.service.IUserService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("user")
+@Slf4j
 public class UserController {
     private static final Long MAX_USERID = (long) Integer.MAX_VALUE;
     private static final Long MIN_USERID = 1L;
@@ -40,5 +46,20 @@ public class UserController {
             throw new IllegalArgumentException("username can not be empty for queryByUsername");
         }
         return userService.queryByUsername(username);
+    }
+
+    @GetMapping("cost")
+    @SneakyThrows
+    public Object cost(){
+        int time = RandomUtils.nextInt(30, 80);
+        TimeUnit.MILLISECONDS.sleep(time);
+        return "success";
+    }
+
+    @GetMapping("log_test")
+    public Object logTest(){
+        log.info("info msg");
+        log.error("error msg");
+        return "success";
     }
 }
