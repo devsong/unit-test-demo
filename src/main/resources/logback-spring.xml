@@ -72,17 +72,17 @@
         <appender-ref ref="sys-perf-file" />
     </logger>
 
-    <logger name="unit.test.demo" level="error" additivity="false">
+    <logger name="unit.test.demo" level="error">
         <appender-ref ref="error_file"/>
     </logger>
 
-    <logger name="unit.test.demo" level="info" additivity="false">
+    <logger name="unit.test.demo" level="info">
         <appender-ref ref="info_file"/>
     </logger>
 
     <root level="info">
         <appender-ref ref="console"/>
-<!--        <appender-ref ref="info_file"/>-->
-<!--        <appender-ref ref="error_file"/>-->
+        <appender-ref ref="info_file"/>
+        <appender-ref ref="error_file"/>
     </root>
 </configuration>

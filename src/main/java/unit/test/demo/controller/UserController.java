@@ -50,15 +50,15 @@ public class UserController {
 
     @GetMapping("cost")
     @SneakyThrows
-    public Object cost(){
+    public Object cost() {
         int time = RandomUtils.nextInt(30, 80);
         TimeUnit.MILLISECONDS.sleep(time);
         return "success";
     }
 
     @GetMapping("log_test")
-    public Object logTest(){
-        log.info("info msg");
+    public Object logTest(String str) {
+        log.info("info msg {}", str);
         log.error("error msg");
         return "success";
     }
